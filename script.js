@@ -124,20 +124,24 @@ function lose() {
 }
 
 async function getWord() {
-  const promise = await fetch(
-    "https://words.dev-apis.com/word-of-the-day?random=1",
-  );
-  const processedPromise = await promise.json();
-  correctWord = processedPromise.word.toLowerCase();
+    const promise = await fetch(
+        "https://amitgupta.xyz/word-masters/api/get-word",
+    );
+    const processedPromise = await promise.json();
+    correctWord = processedPromise.word;
 }
 
 async function validateWord(word) {
-  const promise = await fetch("https://words.dev-apis.com/validate-word", {
-    method: "post",
-    body: JSON.stringify({ word: `${word}` }),
-  });
-  const processedPromise = await promise.json();
-  return processedPromise.validWord;
+    const promise = await fetch(
+        "https://amitgupta.xyz/word-masters/api/validate-word",
+        {
+            method: "post",
+	        headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ "word": word }),
+        },
+    );
+    const processedPromise = await promise.json();
+    return processedPromise.validWord;
 }
 
 function invalidWord() {
